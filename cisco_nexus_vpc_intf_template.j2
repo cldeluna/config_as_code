@@ -35,7 +35,7 @@ interface {{ idict['intf'] }}
   {% for vlan in idict['vlans'] -%}
   switchport trunk allowed vlan add {{ vlan }}
   {% endfor -%}
-  channel-group {{ idict['vpc'] }} mode passive
+  channel-group {{ idict['vpc'] }} mode active
   {% if idict['state'] == 'disabled' -%}
   shutdown
   {% else -%}
