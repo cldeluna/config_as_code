@@ -1,0 +1,43 @@
+---
+title: "Cisco Nexus VPC Design Details"
+instance: core01_02_devs_ports45-48
+template: cisco_nexus_vpc_intf_template.j2
+desc: "Create Nexus VPCs configuration including the PortChannel and Interfaces"
+guidelines: "Po numbering in the 1000 range and based on the interface id, multiple ints are contiguous, ports mirrored"
+design_payload:
+    vpc1:
+       primary_dev: "core01"
+       secondary_dev: "core02"
+       function: core
+       intf_start: 1/45
+       destination_dev: "Access1"
+       total_intfs_per_dev: 1
+       vlans:
+         - 10
+         - 20
+         - 30
+       state: disabled
+    vpc2:
+       primary_dev: "core01"
+       secondary_dev: "core02"
+       function: core
+       intf_start: 1/46
+       total_intfs_per_dev: 2
+       destination_dev: "Access2"
+       vlans:
+         - 10
+         - 20
+         - 30
+       state: disabled
+    vpc3:
+       primary_dev: "core01"
+       secondary_dev: "core02"
+       function: core
+       intf_start: 1/48
+       total_intfs_per_dev: 1
+       destination_dev: "Access3"
+       vlans:
+         - 100
+         - 200
+         - 300
+       state: enabled
