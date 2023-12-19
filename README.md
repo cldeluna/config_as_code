@@ -1,2 +1,3 @@
-# config_as_code
+# Configuration As Code
+## (config_as_code)
 Companion Repo to 'Kill the CLI" - Example of Configuration Templates
