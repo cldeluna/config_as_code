@@ -74,7 +74,7 @@ def render_j2template_fp(cfg, j2_template):
     return rendered
 
 
-def get_int_num(intf, debug=False):
+def get_int_num(intf):
     """
     Function that parses the interface and returns the last interface number
     For example: Gi1/0/17
@@ -82,10 +82,6 @@ def get_int_num(intf, debug=False):
     """
     int_only = re.sub(r"^\s*\D{2,3}", "", intf)
     _ = intf.split("/")
-    if debug:
-        print(int_only)
-        print(f"\n\n{_}")
-        print(type(_[-1]))
 
     return _[-1]
 
@@ -126,14 +122,16 @@ def main():
             else:
                 itext = f"{itext}, Ethernet1/{intf_num+i}"
         cfg_payload['design_payload'][item].update({'intf': itext})
-        pp.pprint((cfg_payload['design_payload'][item]))
-        print("-----")
-    jtemplate = "cisco_nexus_vpc_intf_template.j2"
-    output = render_j2template_fp(cfg_payload, jtemplate)
-    print("\n\nOUTPUT:")
-    # print(output)
 
+    # Set Jinja2 Template to use
+    jtemplate = "cisco_nexus_vpc_intf_template.j2"
+
+    # Render the standard payload output give the cfg_payload developed
+    output = render_j2template_fp(cfg_payload, jtemplate)
+
+    # Save to File
     write_rendered_to_file(content=output)
+
 
 # Standard call to the main() function.
 if __name__ == '__main__':
