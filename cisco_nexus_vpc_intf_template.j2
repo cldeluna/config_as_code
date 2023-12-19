@@ -7,7 +7,8 @@
 ! Configlet Generated: {{ cfg['timestamp'] }}
 ! ==================================================================
 
-
+! ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+! Primary Device: {{ idict['primary_dev'] }} Secondary Device: {{ idict['secondary_dev'] }}
 no int po46
 interface port-channel46
   description BDC/ADC Dual Sided vPC
@@ -24,5 +25,5 @@ interface Ethernet1/46, Ethernet1/48
   switchport
   switchport mode trunk
   switchport trunk allowed vlan none
-  channel-group 46 mode active
+  channel-group 46 mode passive
   no shutdown
