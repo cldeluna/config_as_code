@@ -47,7 +47,7 @@ interface {{ idict['intf'] }}
 ! VERIFICATION COMMANDS
 
 show vpc {{ idict['vpc'] }}
-show port-channel summary
+show port-channel summary interface port-channel{{ idict['vpc'] }}
 show int status | i {{ idict['vpc'] }}
 
 {% for vlan in idict['vlans'] -%}
