@@ -7,23 +7,31 @@
 ! Configlet Generated: {{ cfg['timestamp'] }}
 ! ==================================================================
 
+
+{% for item, idict in cfg['design_payload'].items()   %}
 ! ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ! Primary Device: {{ idict['primary_dev'] }} Secondary Device: {{ idict['secondary_dev'] }}
-no int po46
-interface port-channel46
-  description BDC/ADC Dual Sided vPC
+no int port-channel{{ idict['vpc'] }}
+interface port-channel{{ idict['vpc'] }}
+  description TO {{ idict['destination_dev'] }}
   switchport
   switchport mode trunk
-  switchport trunk allowed vlan none
+  {% for vlan in idict['vlans'] -%}
+  switchport trunk allowed vlan add {{ vlan }}
+  {% endfor -%}
   spanning-tree port type network
-  vpc 46
+  vpc {{ idict['vpc'] }}
   no shutdown
 
-default int e1/46-48
-interface Ethernet1/46, Ethernet1/48
-  description To BDC/ADC Dual Sided vPC
+default int {{ idict['intf'] }}
+interface {{ idict['intf'] }}
+  description TO {{ idict['destination_dev'] }}
   switchport
   switchport mode trunk
-  switchport trunk allowed vlan none
-  channel-group 46 mode passive
+  {% for vlan in idict['vlans'] -%}
+  switchport trunk allowed vlan add {{ vlan }}
+  {% endfor -%}
+  channel-group {{ idict['vpc'] }} mode active
   no shutdown
+
+{% endfor %}
