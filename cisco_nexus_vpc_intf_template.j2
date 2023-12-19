@@ -21,7 +21,11 @@ interface port-channel{{ idict['vpc'] }}
   {% endfor -%}
   spanning-tree port type network
   vpc {{ idict['vpc'] }}
+  {% if idict['state'] == 'disabled' -%}
+  shutdown
+  {% else -%}
   no shutdown
+  {% endif -%}
 
 default int {{ idict['intf'] }}
 interface {{ idict['intf'] }}
@@ -31,7 +35,11 @@ interface {{ idict['intf'] }}
   {% for vlan in idict['vlans'] -%}
   switchport trunk allowed vlan add {{ vlan }}
   {% endfor -%}
-  channel-group {{ idict['vpc'] }} mode active
+  channel-group {{ idict['vpc'] }} mode passive
+  {% if idict['state'] == 'disabled' -%}
+  shutdown
+  {% else -%}
   no shutdown
+  {% endif -%}
 
 {% endfor %}
