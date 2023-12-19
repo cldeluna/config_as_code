@@ -7,10 +7,10 @@
 ! Configlet Generated: {{ cfg['timestamp'] }}
 ! ==================================================================
 
-
 {% for item, idict in cfg['design_payload'].items()   %}
 ! ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ! Primary Device: {{ idict['primary_dev'] }} Secondary Device: {{ idict['secondary_dev'] }}
+! Connecting To: {{ idict['destination_dev'] }}
 no int port-channel{{ idict['vpc'] }}
 interface port-channel{{ idict['vpc'] }}
   description TO {{ idict['destination_dev'] }}
@@ -25,7 +25,7 @@ interface port-channel{{ idict['vpc'] }}
   shutdown
   {% else -%}
   no shutdown
-  {% endif -%}
+  {% endif %}
 
 default int {{ idict['intf'] }}
 interface {{ idict['intf'] }}
@@ -40,6 +40,19 @@ interface {{ idict['intf'] }}
   shutdown
   {% else -%}
   no shutdown
-  {% endif -%}
+  {% endif %}
+
+
+! ==================================================================
+! VERIFICATION COMMANDS
+
+show vpc {{ idict['vpc'] }}
+show port-channel summary
+show int status | i {{ idict['vpc'] }}
+
+{% for vlan in idict['vlans'] -%}
+show spanning-tree vlan {{ vlan }}
+{% endfor -%}
 
 {% endfor %}
+
