@@ -160,3 +160,4 @@ cython_debug/
 .idea/
 configlet*
 test*
+.DS_Store
