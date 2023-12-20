@@ -42,7 +42,7 @@ interface {{ idict['intf'] }}
   no shutdown
   {% endif %}
 
-
+!
 ! ------------------------------------------------------------------
 ! VERIFICATION COMMANDS
 
@@ -54,10 +54,13 @@ show int status | i {{ idict['vpc'] }}
 show spanning-tree vlan {{ vlan }}
 {% endfor -%}
 
-{#
+!
 ! ------------------------------------------------------------------
 ! ROLLBACK COMMANDS
-#}
+
+no int port-channel{{ idict['vpc'] }}
+default int {{ idict['intf'] }}
+
 {% endfor %}
 
 
