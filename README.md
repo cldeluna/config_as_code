@@ -12,7 +12,7 @@ This example represents a small step towards getting your configuration template
 
 Who changed the port channel mode  to LACP? to LACP active? When was that change made?  Who has the latest template?  All questions easily answered when your configuration templates are under revision control and in a revision control system.  GitHub and GitLab are some of the more recognizable and odds are a revision control system is already deployed in your Enterprise.
 
-![Commit History](/Users/claudiadeluna/Indigo Wire Networks Dropbox/Claudia de Luna/scripts/articles/2023/Kill_The_CLI/images/commit_history.png)
+![Commit History](images/template_commit_history.png)
 
 This repository takes a very basic configuration activity, configuring vPCs on Cisco Nexus switches,  and shows you the template under revision control AND with logic to easily generate configuations for one or more vPCs with varying numbers of interfaces in the port-channel.  In addition, it leverages a YAML file to store the "design" or "configuration details" needed to generate this configuration.  Further, it attempts to take away some of the personal variation you can see with this type of configuration.  
 
